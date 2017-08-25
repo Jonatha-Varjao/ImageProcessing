@@ -20,17 +20,19 @@ def interpolacaoVizinho(img, factor):
             for j in range(n_Y):
                 p = (int(i/factor), int(j/factor))
                 n_img.putpixel((i,j), img.getpixel(p))
-
         return n_img
-    #AUMENTO
-    else :
+    #AMPLIACÃO
+    elif factor % 2 == 0 :
+        print("ampliacao")
         for i in range(n_X):
             for j in range(n_Y):
                 p = (int(i/factor), int(j/factor))
                 n_img.putpixel((i,j), img.getpixel(p))
-
         return n_img
-        print("AMPLIACAO")
+    # COLUNAS X LINHAS DUPLICADAS
+    else :
+        print("Adequar as colunas x linhas")
+        return img
 
 def InterpolacaoBilinear(img, factor):
     print("a")
