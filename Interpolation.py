@@ -8,48 +8,48 @@ import sys
 #TODO Usar OO
 
 
+
 #Interpolação por vizinho por 2 redução (numero de colunas par)
-def interpolacaoVizinho(img, factor):
+def Vizinho(img, factor):
     size = img.size
     n_X = int(size[0] * factor)
     n_Y = int(size[1] * factor)
     n_img = Image.new("L",(n_X, n_Y))
-    #REDUÇÃO 
-    if factor <= 1:
-        for i in range(n_X):
-            for j in range(n_Y):
-                p = (int(i/factor), int(j/factor))
-                n_img.putpixel((i,j), img.getpixel(p))
-        return n_img
-    #AMPLIACÃO
-    elif factor % 2 == 0 :
-        print("ampliacao")
-        for i in range(n_X):
-            for j in range(n_Y):
-                p = (int(i/factor), int(j/factor))
-                n_img.putpixel((i,j), img.getpixel(p))
-        return n_img
-    # COLUNAS X LINHAS DUPLICADAS
-    else :
-        print("Adequar as colunas x linhas")
-        return img
+    
+    for i in range(n_X):
+        for j in range(n_Y):
+            p = (int(i/factor), int(j/factor))
+            n_img.putpixel((i,j), img.getpixel(p))
+    return n_img
+    
+def Bilinear(img, factor):
+    size = img.size
+    n_X = int(size[0] * factor)
+    n_Y = int(size[1] * factor)
+    n_img = Image.new("L",(n_X, n_Y))
 
-def InterpolacaoBilinear(img, factor):
-    print("a")
 
 # MAIN passando a foto pelo CLI
 if __name__ == "__main__":
 
-    if len(sys.argv) < 2:
-        print("Faltando path/to/image.png")
+    if len(sys.argv) < 4:
+        print(" 'python Interplation.py 'imagem' 'fator' 'imagemSaida' 'tipo'")
+        # tipo -> 1 = Vizinho, 2 = Bilinear
         exit()
-
-    img = Image.open(sys.argv[1])
-    img.show()
-    #RECEBENDO O FATOR DE REDUÇÃO AMPLIAÇÃO
-    size = float(sys.argv[2])
-    
-    a = interpolacaoVizinho(img, size)
-    a.show()
-    a.save(sys.argv[3])
-    
+    else :
+        #RECEBENDO O FATOR DE REDUÇÃO AMPLIAÇÃO
+        size = float(sys.argv[2])
+        #INTERPOLACAO VIZINHO
+        if sys.argv[4] == '1':
+            img = Image.open(sys.argv[1])
+            img.show()
+            a = Vizinho(img, size)
+            a.show()
+            a.save(sys.argv[3])
+        #INTERPOLACAO BILINEAR
+        elif sys.argv[4] == '2' :
+            img = Image.open(sys.argv[1])
+            img.show()
+            a = Bilinear(img,size)
+            a.show()
+            a.save(sys.argv[3])
