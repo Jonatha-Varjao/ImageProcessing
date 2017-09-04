@@ -1,7 +1,3 @@
-# ImageProcessing
-Collection of Algorithms produced on Image Processing Class on UFT
+# Collections of Image Processing Algorithms
+###### Made in Image Processing Lecture on UFT
 
-.py extension <br />
-
-python "entryimage.jpg" "scaleFactor" "outputImage.jpg"
-only working with jpg extension imagefiles
