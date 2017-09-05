@@ -9,7 +9,6 @@ import sys
 
 
 
-#Interpolação por vizinho por 2 redução (numero de colunas par)
 def Vizinho(img, factor):
     size = img.size
     n_X = int(size[0] * factor)
