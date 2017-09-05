@@ -43,21 +43,35 @@ def Bilinear(img, factor):
                     a,b,c,d = img.getpixel(p), img.getpixel(b), img.getpixel(c), img.getpixel(d)                    
                     p = (a+b+c+d)/4
                     n_img.putpixel((i,j), p)                    
-                
-                p = (int(i/factor),int(j/factor))             
-                b, c, d = (p[0], p[1]+1), (p[0]+1, p[1]), (p[0]+1, p[1]+1)
-                a,b,c,d = img.getpixel(p), img.getpixel(b), img.getpixel(c), img.getpixel(d)                    
-                p = (a+b+c+d)/4
-                n_img.putpixel((i,j), p)
+                else:
+                    p = (int(i/factor),int(j/factor))             
+                    b, c, d = (p[0], p[1]+1), (p[0]+1, p[1]), (p[0]+1, p[1]+1)
+                    a,b,c,d = img.getpixel(p), img.getpixel(b), img.getpixel(c), img.getpixel(d)                    
+                    p = (a+b+c+d)/4
+                    n_img.putpixel((i,j), p)
         return n_img
     else:
         for i in range (n_X):
             for j in range (n_Y):
+                #tratamento da borda i
                 if i == n_X-1: #LIMITE I
                     p = (int(i/factor),int(j/factor))
                     a,b,c,d,e = (p[0],p[1]),
+                #tratamento da borda j
+                elif j == n_Y-1:
+                    pass
+                
+                elif i % 2 == 0 :
+                    if j % 2 == 0: # setar img original
+                        pass
+                    else:           #a = Lpassado + Lfuturo / 2
+                        pass
 
-
+                else:
+                    if j % 2 == 0:
+                        pass  #a = cima + baixo / 2
+                    else:
+                        pass  #c = 
         return n_img
 
 # MAIN passando a foto pelo CLI
