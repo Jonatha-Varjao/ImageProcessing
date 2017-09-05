@@ -33,15 +33,20 @@ def Bilinear(img, factor):
             for j in range(n_Y):
                 if i == n_X-1: #CHEGUEI NO LIMITE NO I, LOGO N ADD O I+1
                     p = (int(i/factor),int(j/factor))
-                    b, c, d = (p[0], p[1]+1), (p[0], p[1]), (p[0], p[1]+1)
+                    b, c, d = (p[0], p[1]+1), (p[0]-1, p[1]), (p[0]-1, p[1]+1)
                     a,b,c,d = img.getpixel(p), img.getpixel(b), img.getpixel(c), img.getpixel(d)                    
                     p = (a+b+c+d)/4
                     n_img.putpixel((i,j), p)
                 elif j == n_Y-1: #CHEGUEI NO LIMITE DO J, LOGO N ADD O J+1
-                    p = (int(i/factor),int(j/factor))
-                    b, c, d = (p[0], p[1]), (p[0]+1, p[1]), (p[0]+1, p[1])
-                    a,b,c,d = img.getpixel(p), img.getpixel(b), img.getpixel(c), img.getpixel(d)                    
-                    p = (a+b+c+d)/4
+                    p = (int(i/factor),int(j/factor))                    
+                    if i == 0:  # primira linha n posso pegar i-1
+                        b, c, d = (p[0], p[1]-1), (p[0]+1, p[1]), (p[0]+1, p[1]-1)
+                        a,b,c,d = img.getpixel(p), img.getpixel(b), img.getpixel(c), img.getpixel(d)                    
+                        p = (a+b+c+d)/4
+                    else:
+                        b, c, d = (p[0], p[1]-1), (p[0]+1, p[1]-1), (p[0]+1, p[1])
+                        a,b,c,d = img.getpixel(p), img.getpixel(b), img.getpixel(c), img.getpixel(d)                    
+                        p = (a+b+c+d)/4
                     n_img.putpixel((i,j), p)                    
                 else:
                     p = (int(i/factor),int(j/factor))             
@@ -50,28 +55,75 @@ def Bilinear(img, factor):
                     p = (a+b+c+d)/4
                     n_img.putpixel((i,j), p)
         return n_img
+    #AMPLIACAO
     else:
         for i in range (n_X):
             for j in range (n_Y):
-                #tratamento da borda i
-                if i == n_X-1: #LIMITE I
-                    p = (int(i/factor),int(j/factor))
-                    a,b,c,d,e = (p[0],p[1]),
-                #tratamento da borda j
-                elif j == n_Y-1:
-                    pass
-                
-                elif i % 2 == 0 :
+                #tratamento da borda i                
+                if i == n_X-1: 
                     if j % 2 == 0: # setar img original
-                        pass
-                    else:           #a = Lpassado + Lfuturo / 2
-                        pass
+                        p  = (int(i/factor),int(j/factor))
+                        a1 = (p[0],p[1])
+                        a1 = img.getpixel(a1)
+                        n_img.putpixel((i,j), a1)
+                    else:          #a = Lpassado + Lfuturo / 2
+                        p = (int(i/factor),int(j/factor))
+                        if j == n_Y-1: 
+                            a1,a2 = (p[0],p[1]-1), (p[0],p[1])
+                            a1,a2 = img.getpixel(a1), img.getpixel(a2)
+                            a = (a1+a2)/2
+                            n_img.putpixel((i,j), a)
+                            
+                        else:
+                            a1,a2 = (p[0],p[1]), (p[0],p[1]+1)
+                            a1,a2 = img.getpixel(a1), img.getpixel(a2)
+                            a = (a1+a2)/2
+                            n_img.putpixel((i,j), a)                        
 
-                else:
-                    if j % 2 == 0:
-                        pass  #a = cima + baixo / 2
+                #tratamento da borda j                
+                elif j == n_Y-1:
+                    p  = (int(i/factor),int(j/factor))
+                    if j % 2 == 0: # setar img original
+                        a1 = (p[0],p[1])
+                        a1 = img.getpixel(a1)
+                        n_img.putpixel((i,j), a1)
+                        
+                    else:          #a = Lpassado + Lfuturo / 2
+                        a1,a2 = (p[0],p[1]-1), (p[0],p[1])
+                        a1,a2 = img.getpixel(a1), img.getpixel(a2)
+                        a = (a1+a2)/2
+                        n_img.putpixel((i,j), a)                
+                #i par
+                elif i % 2 == 0 : 
+                    
+                    if j % 2 == 0: # setar pixel da img original
+                        p  = (int(i/factor),int(j/factor))
+                        a1 = (p[0],p[1])
+                        a1 = img.getpixel(a1)
+                        n_img.putpixel((i,j), a1)
+                    else:  #j impar logo a = Lpassado + Lfuturo / 2                       
+                        
+                        p = (int(i/factor),int(j/factor))                                   
+                        a1,a2 = (p[0],p[1]), (p[0],p[1]+1)
+
+                        a1,a2 = img.getpixel(a1), img.getpixel(a2)
+                        a = (a1+a2)/2
+                        n_img.putpixel((i,j), a)
+
+                else: #i impar
+                    if j % 2 == 0: #a = cima + baixo / 2
+                        p  = (int(i/factor),int(j/factor))
+                        a1,a2 = (p[0],p[1]),(p[0]+1,p[1])
+                        a1,a2 = img.getpixel(a1),img.getpixel(a2)
+                        a = (a1+a2)/2
+                        n_img.putpixel((i,j), a)
                     else:
-                        pass  #c = 
+                        p  = (int(i/factor),int(j/factor))
+                        a1,a2,a3,a4 = (p[0],p[1]),(p[0]+1,p[1]),(p[0],p[1]+1),(p[0]+1,p[1]+1)
+                        a1,a2,a3,a4 = img.getpixel(a1),img.getpixel(a2),img.getpixel(a3),img.getpixel(a4)
+                        a = (a1+a2+a3+a4)/4
+                        n_img.putpixel((i,j), a)
+                        
         return n_img
 
 # MAIN passando a foto pelo CLI
