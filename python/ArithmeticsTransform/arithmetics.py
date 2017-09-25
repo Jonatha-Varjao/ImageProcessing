@@ -7,18 +7,18 @@ import sys
 sys.path.insert(0, 'C:\Users\jonat\Documents\GitClones\ImageProcessing\python\Interpolation')
 # importando as funções de interpolação
 from interpolation import *
+import time
+
 
 #Imagens tem que ser do mesmo tamanho, caso contrário usar interpolaçãoBi                                                                                                                                                        }
 def transformArit(imageOne, imageTwo):
-    imageSum    =   soma(imageOne, imageTwo)
-    imageSub    =   sub(imageOne, imageTwo)
-    imageMult   =   mult(imageOne, imageTwo)
-    imageDiv    =   div(imageOne, imageTwo)
-    imageSum.save("Soma.jpg")    
-    imageSub.save("Subtracao.jpg")      
-    imageMult.save("Multiplicacao.jpg")     
-    imageDiv.save("Divisao.jpg")  
-
+    start = time.time()
+    soma(imageOne, imageTwo).save("Soma.jpg") 
+    sub(imageOne, imageTwo).save("Subtracao.jpg") 
+    mult(imageOne, imageTwo).save("Multiplicacao.jpg") 
+    div(imageOne, imageTwo).save("Divisao.jpg")  
+    
+    print("Time taken = {0:.5f}".format(time.time() - start))
 
 def sizeTeste(imageOne, imageTwo):
     # M = N             matriz[m,n]
@@ -30,22 +30,27 @@ def sizeTeste(imageOne, imageTwo):
         Xa,Ya = imageOne.size[0],imageOne.size[0]
         Xb,Yb = imageTwo.size[0],imageTwo.size[1]
         FatorMult =  float(Xb)/float(Xa), float(Yb)/float(Ya)
-        Xa,Ya = FatorMult[0]*Xa, FatorMult[1]*Ya
+        print(FatorMult)
         
+        Xa,Ya = FatorMult[0]*Xa, FatorMult[1]*Ya        
         imgInterpolada = Bilinear(imageOne,(FatorMult[0]))
-        imgInterpolada.show()
+        imgInterpolada.save("Bi"+sys.argv[1])
         
         return transformArit(imgInterpolada, imageTwo )
         
     else:
+        print("imageOne > imageTwo")
         #interpolo a segunda
         Xa,Xb = imageOne.size[0],imageTwo.size[0]
         Ya,Yb = imageOne.size[1],imageTwo.size[1]
-        FatorMult =  float(Xb)/float(Xa), float(Yb)/float(Ya)
+        
+        FatorMult =  float(Xa)/float(Xb), float(Ya)/float(Yb)
+        print(FatorMult)
+        
         Xb,Yb = FatorMult[0]*Xb, FatorMult[1]*Yb
         imgInterpolada = Bilinear(imageTwo,(FatorMult[0]))
-        imgInterpolada.show()
-        
+        imgInterpolada.save("Bi"+sys.argv[2])
+
         return transformArit(imgInterpolada, imageOne)
             
 
@@ -56,8 +61,6 @@ def soma(imageOne, imageTwo):
             p = (i, j)
             newImage.putpixel((i,j), imageOne.getpixel(p) + imageTwo.getpixel(p))
     return newImage
-
-    return 0
 
 def sub(imageOne, imageTwo):
     newImage = Image.new("L", imageOne.size)
@@ -90,30 +93,13 @@ def mult(imageOne, imageTwo):
 
 
 
-
 if __name__ == "__main__":
 
     if len(sys.argv) < 3:
-        print(" compile assim 'python arithmetic.py 'imagem1' 'imagem2' 'opção' ")
+        print(" compile assim 'python arithmetic.py 'imagem1' 'imagem2'")
         exit()
     #SOMA
-    elif sys.argv[3] == '1' :
+    else :
         imageOne = Image.open(sys.argv[1])
-        imageTwo = Image.open(sys.argv[2])
-        
+        imageTwo = Image.open(sys.argv[2])        
         sizeTeste(imageOne, imageTwo)
-        
-        
-        pass
-    #SUBTRAÇÃO
-    elif sys.argv[2] == '2' :
-        pass
-    #SOMA
-    elif sys.argv[2] == '3' :
-        pass
-    #DIVISÃO
-    elif sys.argv[2] == '4' :
-        pass
-    #MULTIPLICAÇÃO
-    elif sys.argv[2] == '5' :
-        pass
