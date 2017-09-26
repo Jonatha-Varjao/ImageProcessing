@@ -15,19 +15,19 @@ def reflexao(image, eixo):
     
     x = lambda x: x
     y = lambda y: y
-
+    
     if "x" in eixo:
         x = lambda x: image.size[0] -1 -x
-    if "y" in eixo:
+    else: 
         y = lambda y: image.size[1] -1 -y
 
-    nimage = Image.new("L", image.size)
+    newImage = Image.new("L", image.size)
 
     for i in range(image.size[0]):
         for j in range(image.size[1]):
-            nimage.putpixel( (x(i), y(j) ), image.getpixel( (i,j) ) )
+            newImage.putpixel( (x(i), y(j) ), image.getpixel( (i,j) ) )
 
-    return nimage
+    return newImage
 
 
 
@@ -46,12 +46,11 @@ if __name__ == "__main__":
             opt = options.split(',')
             print(opt)
             #translation(image, int(opt[0]), int(opt[1])).save("Trans"+sys.argv[1])
-
-        # ROTAÇÃO
+        # REFLEXAO
         elif sys.argv[2] == '2' :
-            pass    
-        # REFLEXÃO
-        elif sys.argv[2] == '3' :
             print("compile assim 'python Interplation.py 'imagem' 'opcao' 'X ou Y' ")
             image = Image.open(sys.argv[1])
             reflexao(image, sys.argv[3]).save("Reflex"+sys.argv[1])
+        # ROTACAO
+        elif sys.argv[2] == '3' :
+            pass
