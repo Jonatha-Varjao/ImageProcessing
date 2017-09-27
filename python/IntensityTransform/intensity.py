@@ -43,6 +43,4 @@ if __name__ == "__main__":
             y = float(sys.argv[3])
             print(y)
             powerLaw(Image.open(sys.argv[1]), y).save("PowerLaw"+sys.argv[1])
-        # LOG
-        elif sys.argv[2] == '3':
-            log(Image.open(sys.argv[1])).save("Log"+sys.argv[1])
+        
