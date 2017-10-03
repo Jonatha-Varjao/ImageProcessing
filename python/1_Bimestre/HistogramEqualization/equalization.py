@@ -48,7 +48,7 @@ def contrastStrech(image):
     list = image.getcolors()
     c =  list[0][1] 
     d =  list[len(list) - 1][1]
-    print('{} {}'.format(c,d))
+    #print('{} {}'.format(c,d))
 
     new_image = Image.new("L",(image.size))
     for i in range(image.size[0]):
@@ -62,9 +62,7 @@ def contrastStrech(image):
             
     return new_image
 
-    '''
-     G(F(i,j))=(F(i,j) – c) *(255/(d-c)) 
-    '''
+    
 
 if __name__ == "__main__":
     if len(sys.argv) < 3 or len(sys.argv) > 3:
@@ -89,6 +87,7 @@ if __name__ == "__main__":
             sys.argv[1]= "Equalizada"+sys.argv[1]
             imageEqualizada.save(sys.argv[1])
             histogramGraph(imageEqualizada)
+    
     elif sys.argv[2] == '2':
         image = contrastStrech(Image.open(sys.argv[1]))
         sys.argv[1]= "ConstantStretch"+sys.argv[1]
