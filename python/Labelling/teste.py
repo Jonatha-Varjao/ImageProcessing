@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from PIL import Image
 from random import randint
+import sys
 
 
 def BinarizarImagem(image):
@@ -65,7 +66,7 @@ def Rotulacao(image):
     return new_image
 
 if __name__ == "__main__":
-    import sys
+    
 
     if len(sys.argv) < 2:
         print("compile assim 'python 'labelling.py' 'imagem' 'imagemSaida' ")
