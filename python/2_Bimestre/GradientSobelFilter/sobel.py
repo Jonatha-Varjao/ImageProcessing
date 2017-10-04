@@ -34,15 +34,6 @@ def maskVertical(image, coord):
     return pMedia
 
 
-def sub(imageOne, imageTwo):
-    newImage = Image.new("L", imageOne.size)
-    for i in range(newImage.size[0]):
-        for j in range(newImage.size[1]):
-            p = (i, j)
-            newImage.putpixel((i,j), imageOne.getpixel(p) - imageTwo.getpixel(p))
-    return newImage
-
-
 def sobelFilter(image, filter):
     new_image = Image.new("L",(image.size),0)
     for i in range(image.size[0]):
