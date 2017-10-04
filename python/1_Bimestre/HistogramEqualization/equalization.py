@@ -40,7 +40,7 @@ def returnFrequencia(image):
     for i in range(image.size[0]):
         for j in range(image.size[1]):
             p = image.getpixel((i,j))
-            m = freqEq[p]
+            m = round(freqEq[p])
             new_image.putpixel((i,j), int(m) )
     return new_image
 
