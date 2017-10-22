@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# HISTOGRAM EQUALIZATION 
 from PIL import Image
 from matplotlib import pyplot as plt
 import sys

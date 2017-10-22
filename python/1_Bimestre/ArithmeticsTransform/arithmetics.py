@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+# ARITHMETCIS TRANSFORM + - / * ON IMAGES
 from PIL import Image
 from decimal import Decimal 
 import sys
 #TODO OBJECT ORIENTED
-#adicionando o path do script de interpolação
+#adicionando o path do script de interpolação (interpolation script source, no __init__ yet.)
 sys.path.insert(0, 'C:\Users\jonat\Documents\GitClones\ImageProcessing\python\Interpolation')
 # importando as funções de interpolação
 from interpolation import *

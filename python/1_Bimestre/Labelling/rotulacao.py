@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# LABELLING METHODO USING UNION-FIND ARRAYS
 from PIL import Image, ImageDraw
 
 import sys

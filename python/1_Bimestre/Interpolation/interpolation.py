@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# INTERPOLATION METHODS : NEIGHBOORHOOD AND BILINEAR
 from PIL import Image
 import sys
 

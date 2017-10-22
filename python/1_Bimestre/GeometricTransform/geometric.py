@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# GEOMETRIC TRANSFORM TRANSLATION AND REFLECTION
+# TODO: SHEAR AND ROTATION
 from PIL import Image
 import sys
 import math

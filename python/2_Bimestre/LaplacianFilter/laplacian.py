@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# LAPLACIAN FILTER WITH 4 MASKS IMPLEMENTATION
 from PIL import Image
 import sys
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# SOBEL GRADIENT WITH VERTICAL AND HORIZONTAL AXIS IMPLEMENTED
 from PIL import Image
 import sys
 

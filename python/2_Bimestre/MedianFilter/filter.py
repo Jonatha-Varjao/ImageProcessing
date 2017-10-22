@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# MEDIAN FILTER 3X3 MASK
 from PIL import Image
 import sys
 
