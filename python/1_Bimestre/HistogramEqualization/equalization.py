@@ -19,10 +19,8 @@ def histogramGraph(image):
         plt.bar(idx, c[0], color="black")
     return plt.savefig("./histogram/histogram"+sys.argv[1])
 
-def returnFrequencia(image):
-    
-    qtdPixels = image.size[0]*image.size[1]
-    
+def returnFrequencia(image):    
+    qtdPixels = image.size[0]*image.size[1]    
     list2 = image.histogram()
     PrRk = [ (float(list2[i])/float(qtdPixels),i) for i in range(256) ]    
     #print PrRk
