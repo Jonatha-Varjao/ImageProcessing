@@ -45,22 +45,6 @@ def getMeanBackground(indice, hist):
         
     return float(mean)/float(getQtdPixelsAntes(indice, hist))
 
-def getVarianceBackground(indice, hist, mean):
-    variance = 0
-    for i in range(0,indice+1):
-        variance =  variance + pow((i - mean),2)
-    
-    return float(variance)/float(getQtdPixelsAntes(indice, hist))
-
-
-    
-def getVarianceForeground(indice, hist, mean):
-    variance = 0
-    for i in range(indice,len(hist)):
-        variance =  variance + pow((i - mean),2)
-    
-    return float(variance)/float(getQtdPixelsDepois(indice, hist))
-
 def getMeanForeground(indice, hist):
     if indice == 0 : return 0
     mean = 0
@@ -68,14 +52,26 @@ def getMeanForeground(indice, hist):
         mean =  mean + (i * hist[i])
     return float(mean)/float(getQtdPixelsDepois(indice, hist))
 
+def getVarianceBackground(indice, hist, mean):
+    variance = 0
+    for i in range(0,indice+1):
+        variance =  variance + (pow((i - mean),2) * hist[i])
+    
+    return float(variance)/float(getQtdPixelsAntes(indice, hist))
+
+def getVarianceForeground(indice, hist, mean):
+    variance = 0
+    for i in range(indice,len(hist)):
+        variance =  variance + (pow((i - mean),2) * hist[i])
+    
+    return float(variance)/float(getQtdPixelsDepois(indice, hist))
+
+
+
 
 def otsuBinarization(image):
     hist            = image.histogram()
     qtdPixels       = image.size[0]*image.size[1]
-    PrRk            = [(i, hist[i]) for i in range(len(hist))]
-    soma            = 0
-    qtdPixelsAntes  = 0
-    qtdPixelsDepois = 0
     Variacao        = []
     
     for i in range(len(hist)):
@@ -90,10 +86,9 @@ def otsuBinarization(image):
         Vf              =   getVarianceForeground(i, hist, Mf)
         Variacao.insert(i, float((Wb*Vb)+(Wf*Vf)))
     
-    print Variacao
+    print len(Variacao)
     print min(Variacao)
     print Variacao.index(min(Variacao))
-   
     
 
 
@@ -102,6 +97,6 @@ if __name__ == "__main__":
         print("compile assim 'python 'otsu.py' 'imagem' ")
         exit()
     else:
-        #otsuBinarization(Image.open(sys.argv[1]))
-        otsuBinarization(Image.open(sys.argv[1]).convert("L"))
-        #print (Image.open(sys.argv[1])).convert("L")
+        otsuBinarization(Image.open(sys.argv[1]))
+        #otsuBinarization(Image.open(sys.argv[1]).convert("L"))
+        print Image.open(sys.argv[1])
