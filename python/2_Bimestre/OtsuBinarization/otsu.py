@@ -197,15 +197,14 @@ if __name__ == "__main__":
             #transormar em cinza 
             imageGray =  RGB_to_GrayScale(Image.open(sys.argv[1]))
             imageGray.show()
-            histogramGraph(imageGray)
+            #histogramGraph(imageGray)
             OtsuValue = otsuBinarization(imageGray)
             limiarizacao(imageGray,OtsuValue).show()
         elif Image.open(sys.argv[1]).mode == 'L':    
             imageGray = Image.open(sys.argv[1])
             imageGray.show()
-            print imageGray
             OtsuValue = otsuBinarization(imageGray)
             limiarizacao(imageGray, OtsuValue).show()
-            histogramGraph(imageGray)
+            #histogramGraph(imageGray)
         else :
             print("Imagem não suportada")  
