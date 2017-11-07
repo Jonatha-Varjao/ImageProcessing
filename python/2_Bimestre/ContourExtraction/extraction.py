@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from PIL import Image
 import sys
+sys.path.append('../OtsuBinarization')
+from otsu import *
 # COUNTOR EXTRACTION BASED ON MORPHOLOGICAL TRANSFORM 
 # ORIGINAL IMAGE - EROSED IMAGE -> GIVES ME THE COUNTOR
+
+
 
 def getPixel(image, coord ):
     try:
@@ -45,7 +49,7 @@ def elementoEstruturante_8(image, coord):
 
 # FUNCTION THAT RETURNS EROSED IMAGE
 def imageErosion(image, elemento):
-    new_Image = Image.new("1",image.size,0)
+    new_Image = Image.new("L",image.size,0)
     for i in range(image.size[0]):
         for j in range(image.size[1]):
             coord = i,j
@@ -58,7 +62,7 @@ def imageErosion(image, elemento):
 
 # FUNCTION THAT RETURNS COUNTOR : ORIGINAL - EROSED
 def contourExtraction(image,imageErodida):
-    new_Image = Image.new("1",image.size,0)
+    new_Image = Image.new("L",image.size,0)
     for i in range(image.size[0]):
         for j in range(image.size[1]):
             coord = i,j
@@ -68,10 +72,35 @@ def contourExtraction(image,imageErodida):
     return new_Image
 
 
-
 if __name__ == "__main__":
     if len(sys.argv) < 3 or len(sys.argv) > 3:
         print("compile assim 'python 'extraction.py' 'imagem' '4 ou 8' ")
         exit()
     else:
-        contourExtraction(Image.open(sys.argv[1]) ,imageErosion(Image.open(sys.argv[1]), int(sys.argv[2] ))).show()
+            #IMAGEM COLORIDA
+        if Image.open(sys.argv[1]).mode == 'RGB':
+            #RGB -> GRAYSCALE
+            imageGray =  RGB_to_GrayScale(Image.open(sys.argv[1]))
+            imageGray.show()
+            vizinhanca      = int(sys.argv[2])
+            OtsuValue       = otsuBinarization(imageGray)
+            #BINARIZANDO ATRAVES DO METODO OTSU
+            imagemOriginal  =  limiarizacao(imageGray, OtsuValue)
+            #EROSAO
+            imagemErodida   = imageErosion(imagemOriginal, vizinhanca)
+            imagemOriginal.show()
+            imagemErodida.show()
+            #EXTRACAO DE CONTORNO
+            contourExtraction(imagemOriginal, imagemErodida).show()
+        elif Image.open(sys.argv[1]).mode == 'L':
+            #IMAGEM EM ESCALA DE CINZA
+            vizinhanca      = int(sys.argv[2])
+            imageGray       = Image.open(sys.argv[1])
+            OtsuValue       = otsuBinarization(imageGray)
+            #BINARIZANDO ATRAVES DO METODO OTSU
+            imagemOriginal  =  limiarizacao(imageGray, OtsuValue)
+            imagemErodida   = imageErosion(imagemOriginal, vizinhanca)
+            imagemOriginal.show()
+            imagemErodida.show()
+            #EXTRACAO DE CONTORNO
+            contourExtraction(imagemOriginal, imagemErodida).show()
