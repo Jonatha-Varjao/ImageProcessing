@@ -7,7 +7,6 @@ from otsu import *
 # ORIGINAL IMAGE - EROSED IMAGE -> GIVES ME THE COUNTOR
 
 
-
 def getPixel(image, coord ):
     try:
         p = image.getpixel(coord)
@@ -61,12 +60,12 @@ def imageErosion(image, elemento):
     return new_Image
 
 # FUNCTION THAT RETURNS COUNTOR : ORIGINAL - EROSED
-def contourExtraction(image,imageErodida):
-    new_Image = Image.new("L",image.size,0)
-    for i in range(image.size[0]):
-        for j in range(image.size[1]):
+def contourExtraction(imagemOriginal,imageErodida):
+    new_Image = Image.new("L",imagemOriginal.size,0)
+    for i in range(imagemOriginal.size[0]):
+        for j in range(imagemOriginal.size[1]):
             coord = i,j
-            contorno = image.getpixel(coord) - imageErodida.getpixel(coord)
+            contorno = imagemOriginal.getpixel(coord) - imageErodida.getpixel(coord)
             new_Image.putpixel( coord, contorno )    
 
     return new_Image
